@@ -6,10 +6,16 @@ int main()
 {
     start();
     init_W();
-    count_Y1(0);
-    count_Y2();
-    print_all();
-
+    lern();
+    //count_Y1(0);
+    //count_Y2();
 
     return 0;
 }
+
+
+
+
+
+
+
