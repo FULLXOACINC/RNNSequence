@@ -5,7 +5,7 @@ void count_Y1(int index);
 void start();
 void count_Y2();
 void init_W();
-float soft_plus(float x);
-float d_soft_plus(float x);
+double soft_plus(double x);
+double d_soft_plus(double x);
 
 #endif // RNN_H_INCLUDED

@@ -4,12 +4,13 @@
 	<stdlib.h>
 	"RNN.h"
 
-1510694487 source:/home/alex/CProjects/MRZ_2/MRZ_2/RNN.c
+1511047942 source:/home/alex/CProjects/MRZ_2/MRZ_2/RNN.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<math.h>
+	<string.h>
 	"RNN.h"
 
-1510688669 /home/alex/CProjects/MRZ_2/MRZ_2/RNN.h
+1511031661 /home/alex/CProjects/MRZ_2/MRZ_2/RNN.h
 
