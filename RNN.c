@@ -67,69 +67,66 @@ void init_W(){
         Y2_W[j]=((((double)rand()/(double)(RAND_MAX)) * 2)-1);
 
 }
-void start(){
+void start(int x,int y,double _e,double _A){
 
     int size=16;
     double sequence[16];
     char choose;
+
+    e=_e;
+    A =_A;
+    x_size=x;
+    y1_size=y;
+
     printf("Choose sequence\n");
     printf("1) Fibonacci number\n");
     printf("2) 1,2,3,4,5...\n");
-    printf("3) 2^x \n");
-    printf("4) x^2 \n");
-    printf("5) 1,2,3,1,2,3... \n");
-
+    printf("3) 1,2,3,1,2,3... \n");
+    printf("4) x^2\n");
+    printf("5) Factorial\n");
+    printf("6) Enter sequence\n");
+    choose=getchar();
     choose=getchar();
 
     switch (choose) {
     case '1':{
         double tmp[] = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610};
-        size = 10;
-        e=0.05;
-        A =0.001;
-        x_size=2;
-        y1_size=3*x_size;
+        size = 12;
+      //  e=0.05;
+      //  A =0.001;
+      //  x_size=2;
+      //  y1_size=1;
         memcpy(sequence, tmp, sizeof(tmp));
         break;
     }
     case '2':{
-        double tmp[] =  {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 16};
-        size = 10;
-        e=0.1;
-        A =0.001;
-        x_size=2;
-        y1_size=5*x_size;
+        double tmp[] =  {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+        size = 15;
+       // e=0.1;
+      //  A =0.001;
+      //  x_size=2;
+       // y1_size=1*x_size;
         memcpy(sequence, tmp, sizeof(tmp));
         break;
     }
     case '3':{
-        double tmp[] =  {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
-        size = 6;
+        double tmp[] =  {1,2,6,24,120,720,5040,40320};
+        size = 7;
 
-        e=0.01;
-        A =0.01;
-        x_size=size-2;
-        y1_size=8*x_size;
+      //  A =0.001;
+       // x_size=6;
+      //  y1_size=1*x_size;
         memcpy(sequence, tmp, sizeof(tmp));
         break;
     }
     case '4':{
         double tmp[] =  {1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256};
-        size = 6;
-
-        A =0.001;
-        x_size=size-5;
-        y1_size=6*x_size;
-        memcpy(sequence, tmp, sizeof(tmp));
-        break;
-    }
-    case '5':{
-        double tmp[] =  {1, 2, 3, 1, 2, 3, 1, 2, 3, 1 , 2, 3, 1 , 2, 3, 1 , 2, 3};
         size = 8;
 
-        A =0.001;
-        x_size=size-5;
-        y1_size=6*x_size;
+     //   e=0.05;
+     //   A =0.001;
+       // x_size=size-6;
+      //  y1_size=5*x_size;
         memcpy(sequence, tmp, sizeof(tmp));
         break;
     }
@@ -199,15 +196,12 @@ void count_Y1(int index){
 
     for(int j=0;j<y1_size;j++){
             Y1[j]=soft_plus(W_Y1[j]);
-           // printf("Yi  %f",Y1);
     }
-    //printf("\n");
 }
 
 void count_Y2(){
     W_Y2=0.0;
     for(int j=0;j<y1_size;j++){
-   //     printf("%f  %f  %f  %f\n",Y1[j]*W2[j]-T2,Y1[j],W2[j],T2);
         W_Y2+=((Y1[j]*W2[j])-T2);
     }
     Y2=soft_plus(W_Y2);
@@ -218,7 +212,6 @@ double soft_plus(double x){
      double return_value;
 
      return_value = log(1 + (double)exp(x));
- //    printf("%f %f\n",return_value,x);
      return (double)return_value;
 }
 
@@ -232,14 +225,14 @@ double d_soft_plus(double x)
 }
 
 
-void lern(){
+void learn(int it){
     int k=0;
     double E;
-    int l=lern_size;
+    int l=lern_size-2;
     do
     {
         k++;
-        if(k>10000)
+        if(k>=it)
             break;
         E=0;
 
@@ -274,12 +267,13 @@ void lern(){
 
         printf("Error = %f\n",E);
     }while(E>e);
-
-    for(int i=0; i<l; i++)
+    print_all();
+    printf("iteration %i\n",k);
+    for(int i=0; i<lern_size; i++)
         {
             count_Y1(i);
             count_Y2(i);
-            printf("%f %f\n",Y2,D[i]);
+            printf("%f %i\n",Y2,(int)D[i]);
             set_old();
 
 
@@ -351,14 +345,7 @@ void print_all(){
     for(int j=0; j<y1_size; j++)
         printf("%f ",Y2_W[j]);
     printf("\n");
-/*
-    printf("\nX\n");
-    for(int i=0; i<lern_size; i++){
-        for(int j=0; j<x_size; j++)
-            printf("%f ",X[i][j]);
-        printf("   %f\n",D[i]);
-    }
-*/
+
     printf("\nY1\n");
     for(int j=0; j<y1_size; j++)
             printf("%f ",Y1[j]);
